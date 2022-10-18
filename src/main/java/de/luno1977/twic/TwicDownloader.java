@@ -129,11 +129,11 @@ public class TwicDownloader {
 
             System.out.println("Zip: " + downloadUrl + " : " + filename);
 
-            Path targetZipFilePath = zipFolder.resolve(filename);
-            if (!Files.exists(targetZipFilePath)) {
-                Files.createDirectories(targetZipFilePath);
+            if (!Files.exists(zipFolder)) {
+                Files.createDirectories(zipFolder);
             }
 
+            Path targetZipFilePath = zipFolder.resolve(filename);
             if (!Files.exists(targetZipFilePath)) {
                 new FileOutputStream(targetZipFilePath.toString())
                         .getChannel()
