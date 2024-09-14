@@ -22,30 +22,29 @@ usage: ./TWICDownloader [Options]...
 
   Downloads TheWeekInChess magazine publications to your local system.
   Updates your local system based on files found in <zipFolder>.
+  After downloading, all extracted pgn files are joined to
+  '<extractBaseFolder>\twic_until_<yyyy-MM-dd>.pgn'
 
- -d,--twicPage <arg>            The landing page where TWIC downloads are available. 
-                                This value defaults to https://theweekinchess.com/twic.
-    --extractExtensions <arg>   The extensions to extract seperated by |.
-                                This value defaults to 'pgn|cbv'. Within
-                                TWIC zip files you will also find 'txt'
-                                files. For each file extension you choose,
-                                a corresponding folder under
-                                <extBaseFolder> is created.
+ -d,--twicPage <arg>            The landing page where TWIC downloads are available. As default,
+                                'https://theweekinchess.com/twic' is used.
+    --extractExtensions <arg>   The extensions to extract seperated by |. As default, 'pgn|cbv' is used. Within TWIC zip
+                                files, you will also find 'txt' files. For each file extension you choose, a
+                                corresponding folder under <extBaseFolder> is created.
  -h,--help                      Displays this help.
- -x,--extBaseFolder <arg>       The folder used on your local file system
-                                to extract TWIC resources to. This value
-                                defaults to 
-                                <user.home='...'>\Documents\ChessBase\Bases\TWIC\,
-                                if the folder 
-                                <user.home='...'>\Documents\ChessBase\ exists on
-                                your system (ChessBase user). Otherwise,
-                                <user.home='...'>\Downloads\ is used. Depending on
-                                the file extensions you want to extract,
-                                corresponding sub-folders (pgn, cbv, txt)
-                                are created.
- -z,--zipFolder <arg>           The folder used on your local file system
-                                to download zip files to (original
-                                sources). This value defaults to
-                                <user.home='...'>\Downloads\TWIC\zips\
+ -x,--extBaseFolder <arg>       The folder used on your local file system to extract TWIC resources to. This value is
+                                set to '<document-base-folder>\ChessBase\Bases\TWIC\', if the folder
+                                exists on your system (ChessBase user). Otherwise, '<download-base>' is used. 
+                                Depending on the file extensions you want to extract, corresponding sub-folders
+                                (pgn, cbv, txt) are created automatically.
+ -z,--zipFolder <arg>           The folder used on your local file system to download zip files to (original sources).
+                                As default, '<download-base>\zips\' is used
+
+<document-base-folder> is determined by:
+Paths.get(FileSystemView.getFileSystemView().getDefaultDirectory().getPath());
+# on Windows e.g. '<user_home>/Documents/' or '<OneDrive-Folder>/Documents'
+
+<download-base> is determined by:
+Paths.get(System.getProperty("user.home")).resolve("Downloads").resolve("TWIC");
+# on windows e.g. <user_home>/Downloads/TWIC/
 
 ```
